@@ -19,45 +19,45 @@ export default function Home() {
   const artists = [
     {
       name: "Central Cee",
-      image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&q=80",
+      image: "./images/centralcee.jpg",
     },
     {
       name: "Dave",
-      image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&q=80",
+      image: "./images/dave.webp",
     },
     {
       name: "Tion Wayne",
-      image: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=800&q=80",
+      image: "./images/tionwayne.webp",
     },
     {
       name: "Russ Millions",
-      image: "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=800&q=80",
+      image: "./images/russmillions.webp",
     },
     {
       name: "ArrDee",
-      image: "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=800&q=80",
+      image: "./images/arrdee.jpg",
     },
     {
       name: "Leostaytrill",
-      image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&q=80",
+      image: "./images/leostaytrill.jpg",
     },
   ];
 
   // UK Music Charts (sample data)
   const charts = [
-    { position: 1, title: "Doja", artist: "Central Cee", streams: "2.5M", trend: "+12%" },
-    { position: 2, title: "Sprinter", artist: "Central Cee & Dave", streams: "2.1M", trend: "+8%" },
-    { position: 3, title: "Body", artist: "Tion Wayne & Russ Millions", streams: "1.9M", trend: "+15%" },
-    { position: 4, title: "Flowers", artist: "ArrDee", streams: "1.7M", trend: "+5%" },
+    { position: 1, title: "No Introduction", artist: "Central Cee", streams: "37.4M", trend: "+12%" },
+    { position: 2, title: "Sprinter", artist: "Central Cee & Dave", streams: "958M", trend: "+8%" },
+    { position: 3, title: "Body", artist: "Tion Wayne & Russ Millions", streams: "358M", trend: "+15%" },
+    { position: 4, title: "Come & Go", artist: "ArrDee", streams: "5.17M", trend: "+5%" },
     { position: 5, title: "Come Again", artist: "Dave", streams: "1.5M", trend: "+10%" },
   ];
 
   // Trending Artists
   const trendingArtists = [
-    { name: "Central Cee", genre: "UK Drill", followers: "8.2M", image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&q=80" },
-    { name: "Dave", genre: "UK Rap", followers: "6.5M", image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400&q=80" },
-    { name: "Tion Wayne", genre: "UK Drill", followers: "4.8M", image: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=400&q=80" },
-    { name: "ArrDee", genre: "UK Rap", followers: "3.2M", image: "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=400&q=80" },
+    { name: "Central Cee", genre: "UK Drill", followers: "8.2M", image: "./images/centralcee.jpg" },
+    { name: "Dave", genre: "UK Rap", followers: "6.5M", image: "./images/dave.webp" },
+    { name: "Tion Wayne", genre: "UK Drill", followers: "4.8M", image: "./images/tionwayne.webp" },
+    { name: "LeoStayTrill", genre: "UK Rap", followers: "3.2M", image: "./images/leostaytrill.jpg" },
   ];
 
   // Auto-slide effect
