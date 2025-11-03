@@ -70,10 +70,10 @@ export default function SignUp() {
           navigate("/login");
         }, 2000);
       } else {
-        setError(data.message || "❌ Registration failed. Please try again.");
+        setError(data.message || "Registration failed. Please try again.");
       }
     } catch (err) {
-      setError("❌ Network error. Please check your connection and try again.");
+      setError("Network error. Please check your connection and try again.");
       console.error("Signup error:", err);
     } finally {
       setLoading(false);
