@@ -15,12 +15,22 @@ import {
   CircularProgress,
   Alert,
   Chip,
+  IconButton,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
 } from "@mui/material";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function Users() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [userToDelete, setUserToDelete] = useState(null);
   const navigate = useNavigate();
 
   // Fetch users from API
@@ -71,6 +81,61 @@ export default function Users() {
 
     fetchUsers();
   }, [navigate]);
+
+  // Handle view user details
+  const handleViewUser = (userId) => {
+    navigate(`/users/${userId}`);
+  };
+
+  // Open delete confirmation dialog
+  const handleDeleteClick = (user) => {
+    setUserToDelete(user);
+    setDeleteDialogOpen(true);
+  };
+
+  // Close delete dialog
+  const handleCloseDialog = () => {
+    setDeleteDialogOpen(false);
+    setUserToDelete(null);
+  };
+
+  // Confirm delete user
+  const handleConfirmDelete = async () => {
+    if (!userToDelete) return;
+
+    try {
+      const authToken = localStorage.getItem("authToken");
+      const headers = {
+        "Content-Type": "application/json",
+      };
+
+      if (authToken) {
+        headers["Authorization"] = `Bearer ${authToken}`;
+      }
+
+      const response = await fetch(
+        `https://students-learning-api.onrender.com/api/auth/${userToDelete._id}`,
+        {
+          method: "DELETE",
+          headers: headers,
+        }
+      );
+
+      if (response.ok) {
+        // Remove user from state
+        setUsers(users.filter((user) => user._id !== userToDelete._id));
+        alert("User deleted successfully!");
+      } else {
+        const data = await response.json();
+        alert(`Failed to delete user: ${data.message || "Unknown error"}`);
+      }
+    } catch (err) {
+      alert("Network error. Please try again.");
+      console.error("Delete user error:", err);
+    } finally {
+      handleCloseDialog();
+    }
+  };
 
   // Logout function
   const handleLogout = () => {
@@ -149,6 +214,9 @@ export default function Users() {
                 <TableCell sx={{ color: "white" }}>
                   <strong>Registered Date</strong>
                 </TableCell>
+                <TableCell sx={{ color: "white" }} align="center">
+                  <strong>Actions</strong>
+                </TableCell>
               </TableRow>
             </TableHead>
 
@@ -168,12 +236,59 @@ export default function Users() {
                     />
                   </TableCell>
                   <TableCell>{formatDate(user.createdAt)}</TableCell>
+                  <TableCell align="center">
+                    <Box sx={{ display: "flex", gap: 1, justifyContent: "center" }}>
+                      <Button
+                        variant="contained"
+                        size="small"
+                        startIcon={<VisibilityIcon />}
+                        onClick={() => handleViewUser(user._id)}
+                      >
+                        View
+                      </Button>
+                      <Button
+                        variant="contained"
+                        color="error"
+                        size="small"
+                        startIcon={<DeleteIcon />}
+                        onClick={() => handleDeleteClick(user)}
+                      >
+                        Delete
+                      </Button>
+                    </Box>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </TableContainer>
       )}
+
+      {/* Delete Confirmation Dialog */}
+      <Dialog
+        open={deleteDialogOpen}
+        onClose={handleCloseDialog}
+        aria-labelledby="delete-dialog-title"
+      >
+        <DialogTitle id="delete-dialog-title">Confirm Delete</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to delete user{" "}
+            <strong>
+              {userToDelete?.firstName} {userToDelete?.lastName}
+            </strong>
+            ? This action cannot be undone.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDialog} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleConfirmDelete} color="error" variant="contained">
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Container>
   );
 }
