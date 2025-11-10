@@ -61,10 +61,10 @@ export default function Login() {
         // Redirect to users page
         navigate("/users");
       } else {
-        setError(data.message || "❌ Invalid email or password. Please try again.");
+        setError(data.message || "Invalid email or password. Please try again.");
       }
     } catch (err) {
-      setError("❌ Network error. Please check your connection and try again.");
+      setError("Network error. Please check your connection and try again.");
       console.error("Login error:", err);
     } finally {
       setLoading(false);

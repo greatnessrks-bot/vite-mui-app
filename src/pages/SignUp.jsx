@@ -43,7 +43,7 @@ export default function SignUp() {
 
     try {
       const response = await fetch(
-        "https://students-learning-api.onrender.com/api/auth",
+        `${import.meta.env.VITE_API_URL}/api/auth/login`,
         {
           method: "POST",
           headers: {
@@ -56,7 +56,7 @@ export default function SignUp() {
       const data = await response.json();
 
       if (response.ok) {
-        setSuccess("✅ Account created successfully! Redirecting to login...");
+        setSuccess("Account created successfully! Redirecting to login...");
         setFormData({
           firstName: "",
           lastName: "",
