@@ -87,6 +87,11 @@ export default function Users() {
     navigate(`/users/${userId}`);
   };
 
+  // Handle edit user
+  const handleEditUser = (userId) => {
+    navigate(`/users/edit/${userId}`);
+  };
+
   // Open delete confirmation dialog
   const handleDeleteClick = (user) => {
     setUserToDelete(user);
@@ -124,13 +129,13 @@ export default function Users() {
       if (response.ok) {
         // Remove user from state
         setUsers(users.filter((user) => user._id !== userToDelete._id));
-        alert("User deleted successfully!");
+        alert("✅ User deleted successfully!");
       } else {
         const data = await response.json();
-        alert(`Failed to delete user: ${data.message || "Unknown error"}`);
+        alert(`❌ Failed to delete user: ${data.message || "Unknown error"}`);
       }
     } catch (err) {
-      alert("Network error. Please try again.");
+      alert("❌ Network error. Please try again.");
       console.error("Delete user error:", err);
     } finally {
       handleCloseDialog();
@@ -245,6 +250,14 @@ export default function Users() {
                         onClick={() => handleViewUser(user._id)}
                       >
                         View
+                      </Button>
+                      <Button
+                        variant="contained"
+                        color="warning"
+                        size="small"
+                        onClick={() => handleEditUser(user._id)}
+                      >
+                        Edit
                       </Button>
                       <Button
                         variant="contained"
